@@ -35,3 +35,4 @@ fork() 与 vfock() 都是创建一个进程，那它们有什么区别呢？
     2）fork()： 子进程拷贝父进程的地址空间，子进程是父进程的一个复制品。
 
        vfork()：子进程共享父进程的地址空间（准确来说，在调用 exec（进程替换） 或 exit（退出进程） 之前与父进程数据是共享的）
+![image](https://github.com/before25tofree/Images/raw/master/vfork.png)
