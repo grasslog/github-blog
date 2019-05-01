@@ -1,4 +1,4 @@
-## vork()
+## vfork()
     所需头文件：
 
     #include <sys/types.h>
