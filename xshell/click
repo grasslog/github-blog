@@ -1,0 +1,47 @@
+# !/usr/bin/env python
+# -*- coding:utf-8 -*-
+
+import requests
+from lxml import etree
+import time
+
+
+def auto_click(url,num=1):
+    while num:
+        req_headers={
+            'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36'
+        }
+        # 获取最后一页的链接
+        resp=requests.get(url,headers=req_headers)
+        if resp.status_code==requests.codes.ok:
+            html=etree.HTML(resp.text)
+            last_page_link=html.xpath('//div[@class="pagelist"]/a[last()]/@href')[0]
+
+            # 获取最后一页的页码
+            # /topleeyap/article/list/4
+            last_page_num=int(last_page_link[-1])
+
+            # 构建所有页面的链接
+            base_page_link='http://blog.csdn.net/topleeyap/article/list/'
+            for i in range(1,last_page_num+1):
+                real_page_link=base_page_link+str(i)
+
+                # 提取本页所有文章链接
+                resp=requests.get(real_page_link,headers=req_headers)
+                if resp.status_code == requests.codes.ok:
+                    html = etree.HTML(resp.text)
+                    article_links=html.xpath('//span[@class="link_title"]/a/@href')
+
+                    # 访问每一篇文章，模拟点击
+                    for article_link in article_links:
+                        real_article_link='http://blog.csdn.net'+article_link
+                        requests.get(real_article_link,headers=req_headers)
+                        print('正在第 [-{0}] 次点击 {1}'.format(num,real_article_link))
+        num -= 1
+        time.sleep(2)
+
+
+if __name__ == '__main__':
+    num=50   # 运行次数,酌情修改
+    url='http://blog.csdn.net/topleeyap'
+    auto_click(url,num)
