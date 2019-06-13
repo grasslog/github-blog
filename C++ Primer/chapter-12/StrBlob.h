@@ -10,7 +10,7 @@ public:
     StrBlobPtr begin();
     StrBlobPtr end();
     StrBlob();
-    StrBlob(std::string il):data(make_shared<vector<string>> (il)) { }
+    StrBlob(initializer_list<string> il):data(make_shared<vector<string>> (il)) { }
     typedef vector<string>::size_type size_type;
 
     size_type size() const{
