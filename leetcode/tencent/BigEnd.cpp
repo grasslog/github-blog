@@ -11,13 +11,12 @@ int main()
 {
     short int x = 0x1234;
     char c = x;
-    printf("%#x\n",x);
-    printf("%#x\n", c);
-    
-    un cos;
-    cos.x = 1;
-
-    printf("%#x\n", cos.y);
+    printf("#%x\n", c);
+    if(c == 0x12){
+        std::cout << "big end." << std::endl;
+    }else {
+        std::cout << "litter end." << std::endl;
+    } 
 
     return 0;
 }
