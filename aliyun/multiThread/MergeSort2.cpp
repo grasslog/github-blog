@@ -80,8 +80,8 @@ int main()
 {
     void* status;
     pthread_t tids;//define the id of thread
-    vector<string> data = {"azcd","afgh","z","hijk","sdf","hlus"};
-    auto s = Leninfo<vector<string>>(0,data.size(),data);
+    vector<int> data = { 7, -5, 3, 15, 10, 79, 5, 10, 6, 6, 9, 17, 14, 1, 3, 8, 19, 20, 21};
+    auto s = Leninfo<vector<int>>(0,data.size(),data);
     pthread_create(&tids,NULL,merge_sort<decltype(data)>,(void*)&(s));
     pthread_join(tids,&status);
     for(const auto &x : data){cout<<x<<endl;}
