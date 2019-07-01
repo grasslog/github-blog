@@ -14,7 +14,7 @@ public:
     }
     Quote& operator=(const Quote& quote2)
     {
-        if(*this != quote2)
+        if(this != &quote2)
         {
             BookNo = quote2.BookNo;
             price = quote2.price;
@@ -28,7 +28,7 @@ public:
     }
     Quote& operator=(const Quote&& quote4) noexcept
     {
-        if(*this != quote4)
+        if(this != &quote4)
         {
             BookNo = move(quote4.BookNo);
             price = move(quote4.price);
