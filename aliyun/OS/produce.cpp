@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <pthread.h>
 #include <semaphore.h>
+//#include <stdlib.h>
 
 sem_t empty, full;
 pthread_mutex_t mutex;
@@ -40,7 +41,8 @@ void *producer(void *arg)
 		sem_wait(&empty);
 		pthread_mutex_lock(&mutex);
 		printf("produce task %d\n", pd);
-		sleep(1);
+		//system("time");
+		//Sleep(1000);
 		buffer_count++;
 		pd++;
 		pthread_mutex_unlock(&mutex);
@@ -54,7 +56,8 @@ void *consumer(void *arg)
 		sem_wait(&full);
 		pthread_mutex_lock(&mutex);
 		printf("consume task %d\n",con);
-		sleep(1);
+		//system("time");
+		//Sleep(1000);
 		buffer_count--;
 		con++;
 		pthread_mutex_unlock(&mutex);
