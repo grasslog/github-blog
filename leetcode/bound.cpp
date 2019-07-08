@@ -1,3 +1,5 @@
+#include <iostream>
+
 void quickSort(int a[], int l, int r)
 {
     if(l >= r) return ;
