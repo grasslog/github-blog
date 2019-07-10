@@ -6,6 +6,8 @@ public:
     Counter() : value_(0) {}
     int64_t value() const;
     int64_t getAndIncrease();
+    friend void swap(Counter&,Counter&);
+    Counter& operator= (const Counter& rhs);
 
 private:
     int64_t value_;
