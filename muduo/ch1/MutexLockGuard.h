@@ -1,15 +1,14 @@
-#pragma once
 #include "noncopyable.h"
-//#include "CurrentThread.h"
-#include <assert.h>
 #include <pthread.h>
+#include <assert.h>
 
 class MutexLock : noncopyable
 {
 public:
-    MutexLock()
-    : holder_(0)
-    { pthread_mutex_init(&mutex_, NULL); }
+    MutexLock() : holder_(0)
+    {
+        pthread_mutex_init(&mutex_, NULL);
+    }
 
     ~MutexLock()
     {
@@ -20,13 +19,17 @@ public:
     void lock()
     {
         pthread_mutex_lock(&mutex_);
-        //holder_ = CurrentThread::tid();
     }
 
     void unlock()
     {
         holder_ = 0;
         pthread_mutex_unlock(&mutex_);
+    }
+
+    pthread_mutex_t* getPthreadMutex()
+    {
+        return &mutex_;
     }
 
 private:
@@ -37,12 +40,15 @@ private:
 class MutexLockGuard : noncopyable
 {
 public:
-    explicit MutexLockGuard(MutexLock& mutex)
-    : mutex_(mutex)
-    { mutex_.lock(); }
-
+    explicit MutexLockGuard(MutexLock& mutex) : mutex_(mutex)
+    {
+        mutex_.lock();
+    }
     ~MutexLockGuard()
-    { mutex_.unlock(); }
+    {
+        mutex_.unlock();
+    }
+
 private:
     MutexLock& mutex_;
 };
